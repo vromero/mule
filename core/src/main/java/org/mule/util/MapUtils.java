@@ -17,7 +17,7 @@ public class MapUtils extends org.apache.commons.collections.MapUtils
 {
     /**
      * Convenience method for CollectionUtil#mapWithKeysAndValues(Class, Iterator,
-     * Iterator); keys and values can be null or empty.
+     * Iterator); backingKeySet and values can be null or empty.
      */
     public static <K, V> Map<K, V> mapWithKeysAndValues(Class<? extends Map> mapClass,
                                                         K[] keys,
@@ -30,7 +30,7 @@ public class MapUtils extends org.apache.commons.collections.MapUtils
 
     /**
      * Convenience method for CollectionUtil#mapWithKeysAndValues(Class, Iterator,
-     * Iterator); keys and values can be null or empty.
+     * Iterator); backingKeySet and values can be null or empty.
      */
     public static <K, V> Map<K, V> mapWithKeysAndValues(Class<? extends Map> mapClass,
                                                         Collection<K> keys,
@@ -43,10 +43,10 @@ public class MapUtils extends org.apache.commons.collections.MapUtils
 
     /**
      * Create & populate a Map of arbitrary class. Populating stops when either the
-     * keys or values iterator is null or exhausted.
+     * backingKeySet or values iterator is null or exhausted.
      *
      * @param mapClass the Class of the Map to instantiate
-     * @param keys iterator for Objects ued as keys
+     * @param keys iterator for Objects ued as backingKeySet
      * @param values iterator for Objects used as values
      * @return the instantiated Map
      */

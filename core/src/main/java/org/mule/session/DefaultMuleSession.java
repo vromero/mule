@@ -12,6 +12,7 @@ import org.mule.api.construct.FlowConstruct;
 import org.mule.api.security.SecurityContext;
 import org.mule.config.i18n.CoreMessages;
 import org.mule.util.CaseInsensitiveHashMap;
+import org.mule.util.ConcurrentCaseInsensitiveHashMap;
 import org.mule.util.UUID;
 
 import java.io.IOException;
@@ -64,7 +65,7 @@ public final class DefaultMuleSession implements MuleSession
     public DefaultMuleSession()
     {
         id = UUID.getUUID();
-        properties = Collections.synchronizedMap(new CaseInsensitiveHashMap/* <String, Object> */());
+        properties = new ConcurrentCaseInsensitiveHashMap();
     }
 
     public DefaultMuleSession(MuleSession session)
@@ -73,11 +74,9 @@ public final class DefaultMuleSession implements MuleSession
         this.securityContext = session.getSecurityContext();
         this.valid = session.isValid();
 
-        this.properties = Collections.synchronizedMap(new CaseInsensitiveHashMap/* <String, Object> */());
-        for (String key : session.getPropertyNamesAsSet())
-        {
-            this.properties.put(key, session.getProperty(key));
-        }
+        final int originalSessionSize = session.getPropertyNamesAsSet().size();
+        this.properties = (originalSessionSize>0) ? new ConcurrentCaseInsensitiveHashMap(originalSessionSize) : new ConcurrentCaseInsensitiveHashMap();
+        this.properties.putAll(((DefaultMuleSession)session).getProperties());
     }
 
     // Deprecated constructor
@@ -208,7 +207,7 @@ public final class DefaultMuleSession implements MuleSession
     @Override
     public Set<String> getPropertyNamesAsSet()
     {
-        return Collections.unmodifiableSet(properties.keySet());
+        return properties.keySet();
     }
 
     public void merge(MuleSession updatedSession)

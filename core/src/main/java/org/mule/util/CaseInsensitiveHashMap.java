@@ -17,11 +17,11 @@ import org.apache.commons.collections.map.AbstractHashedMap;
 /**
  * A case-insensitive <code>Map</code>.
  * <p/>
- * As entries are added to the map, keys hash values are lowercase hash codes of the key.  the
+ * As entries are added to the map, backingKeySet hash values are lowercase hash codes of the key.  the
  * Real key case is preserved.
  * <p/>
  * <p/>
- * The <code>keySet()</code> method returns all keys in their original case
+ * The <code>keySet()</code> method returns all backingKeySet in their original case
  * <p/>
  * <strong>Note that CaseInsensitiveMap is not synchronized and is not thread-safe.</strong>
  * If you wish to use this map from multiple threads concurrently, you must use
@@ -76,7 +76,7 @@ public class CaseInsensitiveHashMap extends AbstractHashedMap implements Seriali
      * Constructor copying elements from another map.
      * <p/>
      * Keys will be converted to lower case strings, which may cause
-     * some entries to be removed (if string representation of keys differ
+     * some entries to be removed (if string representation of backingKeySet differ
      * only by character case).
      *
      * @param map the map to copy
@@ -101,11 +101,11 @@ public class CaseInsensitiveHashMap extends AbstractHashedMap implements Seriali
     }
 
     /**
-     * Overloads the default behaviour to compare the keys without case sensitivity
+     * Overloads the default behaviour to compare the backingKeySet without case sensitivity
      *
      * @param key1 the first key
      * @param key2 the key to compare against
-     * @return true is the keys match
+     * @return true is the backingKeySet match
      */
     @Override
     protected boolean isEqualKey(Object key1, Object key2)
@@ -123,7 +123,7 @@ public class CaseInsensitiveHashMap extends AbstractHashedMap implements Seriali
     //-----------------------------------------------------------------------
 
     /**
-     * Clones the map without cloning the keys or values.
+     * Clones the map without cloning the backingKeySet or values.
      *
      * @return a shallow clone
      */

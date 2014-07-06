@@ -1042,10 +1042,10 @@ public final class XMLEntityCodec
 
             /**
              * <p>
-             * Returns the number of keys in this hashtable.
+             * Returns the number of backingKeySet in this hashtable.
              * </p>
              * 
-             * @return the number of keys in this hashtable.
+             * @return the number of backingKeySet in this hashtable.
              */
             public int size()
             {
@@ -1054,10 +1054,10 @@ public final class XMLEntityCodec
 
             /**
              * <p>
-             * Tests if this hashtable maps no keys to values.
+             * Tests if this hashtable maps no backingKeySet to values.
              * </p>
              * 
-             * @return <code>true</code> if this hashtable maps no keys to values;
+             * @return <code>true</code> if this hashtable maps no backingKeySet to values;
              *         <code>false</code> otherwise.
              */
             public boolean isEmpty()
@@ -1109,7 +1109,7 @@ public final class XMLEntityCodec
 
             /**
              * <p>
-             * Returns <code>true</code> if this HashMap maps one or more keys to
+             * Returns <code>true</code> if this HashMap maps one or more backingKeySet to
              * this value.
              * </p>
              * <p>
@@ -1185,7 +1185,7 @@ public final class XMLEntityCodec
              * in order to accommodate and access its entries more efficiently.
              * </p>
              * <p>
-             * This method is called automatically when the number of keys in the
+             * This method is called automatically when the number of backingKeySet in the
              * hashtable exceeds this hashtable's capacity and load factor.
              * </p>
              */
@@ -1303,7 +1303,7 @@ public final class XMLEntityCodec
             }
 
             /**
-             * <p>Clears this hashtable so that it contains no keys.</p>
+             * <p>Clears this hashtable so that it contains no backingKeySet.</p>
              */
             public synchronized void clear()
             {

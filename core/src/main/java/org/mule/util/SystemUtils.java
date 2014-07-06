@@ -246,7 +246,7 @@ public class SystemUtils extends org.apache.commons.lang.SystemUtils
      * to be quoted properly: <code>-Dkey="some value"</code>.
      *
      * @param input String with property definitionn
-     * @return a {@link Map} of property String keys with their defined values
+     * @return a {@link Map} of property String backingKeySet with their defined values
      *         (Strings). If no valid key-value pairs can be parsed, the map is
      *         empty.
      */

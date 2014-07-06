@@ -92,7 +92,7 @@ public class CopyOnWriteCaseInsensitiveMapTestCase extends AbstractMuleTestCase
 
     /*
      * Assert that Map created with createTestMap() has both of the original properties (FOO and DOO) and that
-     * these can be accessed using case-insensitive keys
+     * these can be accessed using case-insensitive backingKeySet
      */
     protected void assertMapContents(Map<String, Object> map)
     {
