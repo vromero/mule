@@ -219,10 +219,19 @@ javax
 
 ## XML Formatting
 
-| Wrapping   | Wrap lines at 120 characters. Wrap attributes only if they exceed 120 characters. |
-| Indenting  | Use four spaces for indenting, rather that tabs. |
-| Whitespace | Empty tags should not contain whitespace. Incorrect: `<tag />` Correct: `<tag/>`|
-| Aligning   | Align wrapped attributes with the first attribute on the previous line. |
+| Convention | Notes                                                                              |
+|:-----------|:-----------------------------------------------------------------------------------|
+| Wrapping   | Wrap lines at 120 characters. Wrap attributes only if they exceed 120 characters.  |
+| Indenting  | Use four spaces for indenting, rather that tabs.                                   |
+| Whitespace | Empty tags should not contain whitespace. Incorrect: `<tag />` Correct: `<tag/>`   |
+| Aligning   | Align wrapped attributes with the first attribute on the previous line.            |
+
+## XML Schema Conventions
+
+## XML Schema Best Practices
+
+## Resources
+
 
 
 
