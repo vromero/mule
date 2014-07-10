@@ -196,7 +196,22 @@ NOT `private String name_;` | Often private member variables are given an unders
 | The terms get/set must be used where an attribute is accessed directly. | `employee.getName(); employee.setName(name); matrix.getElement(2, 4); matrix.setElement(2, 4, value);` | Common practice in the Java community and the convention used by Sun for the Java core packages and the JavaBean Specification. |
 | `is` prefix should be used for boolean variables and methods.| `isSet`, `isVisible`, `isFinished`, `isFound`, `isOpen` | This is the naming convention for boolean methods and variables used by Sun for the Java core packages and the JavaBean specification. Using the is prefix solves a common problem of choosing bad boolean names like status or flag. isStatus or isFlag simply doesn't fit, and the programmer is forced to chose more meaningful names. |
 | Negated boolean variable names must be avoided. | `boolean isError;` NOT: `boolean isNoError` boolean `isFound;` NOT: `isNotFound` | The problem arise when the logical not operator is used and double negative arises. It is not immediately apparent what !isNotError means.|
-| Associated constants (final variables) should be prefixed by a common type name. | final int COLOR_RED = 1; final int COLOR_GREEN = 2; final int COLOR_BLUE = 3; | This indicates that the constants belong together, and what concept the constants represents. |
+| Associated constants (final variables) should be prefixed by a common type name. | `final int COLOR_RED = 1; final int COLOR_GREEN = 2; final int COLOR_BLUE = 3;` | This indicates that the constants belong together, and what concept the constants represents. |
 
+## Imports
+
+In general, do not include star imports, and ensure that you sort all imports alphabetically, in ascending order in each group.
+
+```java
+org.mule
+<blank Line>
+com
+<blank Line>
+java
+<blank Line>
+javax
+<blank Line>
+<all other import sorted alphabetically>
+```
 
 
