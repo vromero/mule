@@ -192,4 +192,11 @@ NOT: `class OrderServiceImpl implements OrderService` | It is not uncommon to cr
 | Underscores and other special characters should NOT be used in variable names, method names or class names | `private String name;` 
 NOT `private String name_;` | Often private member variables are given an underscore '_' prefix to denote it's private member status. Mule does not use this convention as Java Editors make the status of variables know through color coding. |
 | Generic variables should have the same name as their type. |  `void setTopic(Topic topic)` NOT: `void setTopic(Topic value)` NOT: `void setTopic(Topic aTopic)` NOT: `void setTopic(Topic t)` `void connect(Database database)` NOT: `void connect(Database db)` NOT: `void connect(Database oracleDB)` | Reduce complexity by reducing the number of terms and names used. Also makes it easy to deduce the type given a variable name only. If for some reason this convention doesn't seem to fit it is a strong indication that the type name is badly chosen. Non-generic variables have a role. These variables can often be named by combining role and type: Point startingPoint, centerPoint; Name loginName;|
- 
+|All names should be written in English.| | English is the preferred language for Mule development.|
+| The terms get/set must be used where an attribute is accessed directly. | `employee.getName(); employee.setName(name); matrix.getElement(2, 4); matrix.setElement(2, 4, value);` | Common practice in the Java community and the convention used by Sun for the Java core packages and the JavaBean Specification. |
+| `is` prefix should be used for boolean variables and methods.| `isSet`, `isVisible`, `isFinished`, `isFound`, `isOpen` | This is the naming convention for boolean methods and variables used by Sun for the Java core packages and the JavaBean specification. Using the is prefix solves a common problem of choosing bad boolean names like status or flag. isStatus or isFlag simply doesn't fit, and the programmer is forced to chose more meaningful names. |
+| Negated boolean variable names must be avoided. | `boolean isError;` NOT: `boolean isNoError` boolean `isFound;` NOT: `isNotFound` | The problem arise when the logical not operator is used and double negative arises. It is not immediately apparent what !isNotError means.|
+| Associated constants (final variables) should be prefixed by a common type name. | final int COLOR_RED = 1; final int COLOR_GREEN = 2; final int COLOR_BLUE = 3; | This indicates that the constants belong together, and what concept the constants represents. |
+
+
+
