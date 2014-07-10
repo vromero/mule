@@ -26,8 +26,8 @@ The following table lists common goals to execute for building Mule.
 
 |Command | Description |
 |:----------|:-------------|
-| `mvn clean`	 | purges any built artifacts or intermediate files (such as .class) from the target directory. Default : `target` |
-| `mvn install` | installs the artifact to your local repository. Default: `~/.m2/repository`|
+| `mvn clean`	 | purges any built artifacts or intermediate files (such as .class) from the target directory |
+| `mvn install` | installs the artifact to your local repository.|
 | `mvn test`    | runs any unit tests for this sub-project |
 | `mvn -DskipTests install` |	By default, Maven runs all unit tests for each project for each build which, depending on the project, can take a long time to complete. If you wish, you can skip the tests using this command.|
  
@@ -37,7 +37,7 @@ In addition to the properties he following properies, can change the behaviour o
 
 | Property                  | Default      | Description  |
 |:--------------------------|:-------------|:-------------|
-| `skipIntegrationTests`	 | `false`      | Skip flag for integration tests |
+| `skipIntegrationTests`	   | `false`      | Skip flag for integration tests |
 | `skipSystemTests`         | `true`       | Skip flag for container level tests |
 | `DskipPerformanceTests`   | `true`       | Skip flag for performance tests |
 | `skipArchetypeTests`      | `true`       | Skip flag for the archetype tests|
@@ -58,12 +58,11 @@ For performance's sake, the distributions are *not* built from the project's top
 
 The table below offers a brief description of each type distribution.
 
-|Type                           | Sub-project	                   |Description       |Breadth            |
-|:------------------------------|:-------------------------------|:-----------------|:------------------|
-| Full Standalone Server        | `/distributions/server/full`   | Packages Mule as a stand-alone server application. Includes all transports, extras and all dependencies. Includes the [Java Service Wrapper](http://wrapper.tanukisoftware.org/) for starting/stopping/restarting Mule from the native OS. | heavyweight |
-| Custom Standalone Server      | `/distributions/server/custom` | Packages Mule as a standalone server application without any dependencies. If the user's project is based on Maven, this distribution can easily provide the exact libraries it depends upon because of m2's intelligent resolution of transitive dependencies. | lightweight |
-| JCA Resource Adapter          | `/distributions/jca`           | Packages Mule as a JCA-compatible Resource Adapter for deployment into a J2EE application server. Includes all transports, extras and all dependencies. | heavyweight |
-| Embedded (Composite) JAR File | `/distribution/embedded` | Packages Mule as a single JAR file containing all Mule classes, including all transports and extras). This distribution is useful when embedding Mule into another application, or when using Mule with a non-Maven-based build. Note that when you use this approach, you are responsible for providing any needed Mule dependencies, as described in the next section. | lightweight |
+|Type                           | Sub-project	                   |Description       |
+|:------------------------------|:-------------------------------|:-----------------|
+| Full Standalone Server        | `/distributions/standalone`   | Packages Mule as a stand-alone server application. Includes all transports, extras and all dependencies. Includes the [Java Service Wrapper](http://wrapper.tanukisoftware.org/) for starting/stopping/restarting Mule from the native OS. |
+| Custom Standalone Server      | `/distributions/standalone-light` | Packages Mule as a standalone server application without any source or javadoc files |
+| Embedded (Composite) JAR File | `/distribution/embedded` | Packages Mule as a single JAR file containing all Mule classes, including all transports and extras). This distribution is useful when embedding Mule into another application, or when using Mule with a non-Maven-based build. Note that when you use this approach, you are responsible for providing any needed Mule dependencies, as described in the next section. |
  
 
 ### Troubleshooting Maven
