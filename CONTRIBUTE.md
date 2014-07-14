@@ -338,7 +338,7 @@ In order to set up our [development environment](#setting-up-the-development-env
 
 At that point we were almost ready to develop improvements, we just needed to [configured our favourite IDE](#configuring-the-ide) to develop or debug Mule code.
 
-Then we were finally ready to [develop our contribution](#developing-your-contribution). We learnt how to [keep our topic branch updated](#updating-your-topic-branch) in order to be able to submit [pull request](#submitting-a-pull-request) to the main Mule ESB repository.
+Then we were finally ready to [develop our contribution](#developing-your-contribution). We learnt how to [keep our topic branch updated](#updating-your-topic-branch) in order to be able to submit [pull request](#submitting-a-pull-request) to the main Mule ESB repository. We finally reviewed how to take care of the [internationalization](#internationalization-guidelines) in our contributions.
 
 Thank you one more time for taking some time understanding how to contribute to Mule ESB.
 
