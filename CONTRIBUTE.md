@@ -298,6 +298,38 @@ Ready to submit your patch for review and merging? Initiate a pull request in gi
 4. Mule's core dev team reviews the pull request and may initiate discussion or ask questions about your changes in a Pull Request Discussion. The team can then merge your commits with the master where appropriate.
 5. If you have made changes or corrections to your commit after having submitted the pull request, go back to the Pull Request page and update the Commit Range (via the Commits tab), rather than submitting a new pull request. 
 
+# Advanced
+
+## Internationalization Guidelines
+
+There are two levels of internationalization functionality in Mule.
+
+- **Level 1** Core Internationalization Support
+Java provides basic internationalization functions in the language and bundled libraries. Mule supports message conversion by the specified encoding in metadata and configuration files.
+- **Level 2** Message Catalog
+Mule supports a locale-based message catalog. 
+
+### Encoding Priority
+
+When writing code, respect the following priority order:
+
+1. encoding in metadata (HTTP headers, Mail headers, etc.)
+2. encoding in the configuration file
+3. hard-coded default encoding or platform default encoding
+
+### Byte Stream Conversion
+
+Conversion between string and byte stream is locale-sensitive. If you write code for byte stream conversion, carefully consider the encoding you use.  
+
+The following lists typically misused APIs.  
+
+- **Incorrect**: `String#getBytes()`. **Correct**: Use `String#getBytes(String charsetName)` if you handle non-ASCII strings.
+- **Incorrect**: `String#String(byte[] bytes)`. **Correct**: Use `String(byte[] bytes, String charsetName)` if you handle non-ASCII byte stream. The following constructors are not friendly to internationalization and should be avoided.
+    - `String(byte ascii[], int hibyte, int offset, int count);`
+    - `String(byte ascii[], int hibyte);`
+    - `String(byte bytes[], int offset, int length);`
+- **Incorrect**: InputStreamReader#InputStreamReader(InputStream in) and Friends. **Correct**: Use `InputStreamReader(InputStream in, String charsetName)` if you handle non-ASCII byte stream. If you use subclasses of Reader and Writer, use a constructor with charsetName (we consider charsetName as encoding name in this context).
+
 # Summary
 
 This guide started with pointing to different [sources of information](#getting-to-know-better-mule)  around Mule and the Mule's [community meeting points](#visiting-the-community-meeting-points) on the net. These were useful to understand were Mule is moving to and to have contact mechanisms with the rest of the community for help or discussion.  
@@ -306,7 +338,7 @@ In order to set up our [development environment](#setting-up-the-development-env
 
 At that point we were almost ready to develop improvements, we just needed to [configured our favourite IDE](#configuring-the-ide) to develop or debug Mule code.
 
-Then we were finally ready to [develop our contribution](#developing-your-contribution). We learnt how to [keep our topic branch updated](#updating-your-topic-branch) in order to be able to submit [pull request](#submitting-a-pull-request) to the main Mule ESB repository.
+Then we were finally ready to [develop our contribution](#developing-your-contribution). We learnt how to [keep our topic branch updated](#updating-your-topic-branch) in order to be able to submit [pull request](#submitting-a-pull-request) to the main Mule ESB repository. We finally reviewed how to take care of the [internationalization](#internationalization-guidelines) in our contributions.
 
 Thank you one more time for taking some time understanding how to contribute to Mule ESB.
 

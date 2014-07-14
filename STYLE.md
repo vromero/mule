@@ -1,4 +1,4 @@
-# Mule Coding Conventions
+# Mule Java Coding Conventions
 
 As best practice for team development, Mule uses coding conventions to ensure that code is clean and consistent, and that developers are able to maintain efficient productivity.  
 
@@ -157,79 +157,117 @@ Ensure that all source files contain the following header.
 
 ## Packages
 
-| Property                  | Default      | Description  |
+| Convention           | Example      | Notes  |
 |:--------------------------|:-------------|:-------------|
-| `skipIntegrationTests`	 | `false`      | Skip flag for integration tests |
+| Names representing packages should be in all lower case.	 | `org.mule.application`      | Package naming convention used by Sun for the Java core packages. The initial package name representing the domain name must be in lower case. |
+| Package names should be singular rather than plural.	 | `org.mule.transformer`, `org.mule.transport`      |  |
+| The 'org.mule.api' package tree should be used for all interfaces that make up the API/SPI.	 | `org.mule.api.lifecycle.Callable`      |  |
 
 
+## Interfaces/Classes
 
-| Sub-project       | Description  |  
-|-------------------|--------------|  
-| `buildtools`      | tools to build Mule, scripts, and checkstyle configuration |
-| `core`            | Mule's core API and functionality that is required by all transports distributions       |  
-| `builds`          | the various distributions (refer to the Distributions section below for further details)    |  
-| `examples`        | examples that come with the full Mule distribution |
-| `modules`         | non-transport extensions to Mule, such as XML processing, Spring extras, or scripting support
-| `tests`           | tests that can be run as part of the Mule build |
-| `tools`           | tools for Mule, such as the transport and project Maven archetypes |
-| `transports`      | Mule transports such as the JMS, VM, and TCP transports |
- 
-
-### Building Mule
-
-The following table lists common goals to execute for building Mule.
-
-|Command | Description |
-|:----------|:-------------|
-| `mvn clean`	 | purges any built artifacts or intermediate files (such as .class) from the target directory. Default : `target` |
-| `mvn install` | installs the artifact to your local repository. Default: `~/.m2/repository`|
-| `mvn test`    | runs any unit tests for this sub-project |
-| `mvn -DskipTests install` |	By default, Maven runs all unit tests for each project for each build which, depending on the project, can take a long time to complete. If you wish, you can skip the tests using this command.|
- 
-#### Build properties
-
-In addition to the properties he following properies, can change the behaviour of the Mule build:
-
-| Property                  | Default      | Description  |
+| Convention           | Example      | Notes  |
 |:--------------------------|:-------------|:-------------|
-| `skipIntegrationTests`	 | `false`      | Skip flag for integration tests |
-| `skipSystemTests`         | `true`       | Skip flag for container level tests |
-| `DskipPerformanceTests`   | `true`       | Skip flag for performance tests |
-| `skipArchetypeTests`      | `true`       | Skip flag for the archetype tests|
-| `skipVerifications`       | `false`      | Skip flag for the license check, version enforce, style checks, etc.|
-| `skipInstalls`            | `false`      | Disable installation of artifacts in the local maven repository|
-| `skipGpg`                 | `true`       | Skip artifact signing, as it does require special setup|
-| `skipDistributions`       | `true`      | Skip flag for the distribution files creation |
+| Names representing types must be nouns and written in mixed case starting with upper case.	 | `EsbMessage`, `OrderService` | Common practice in the Java development community and also the type naming convention used by Sun for the Java core packages. |
+| Interface and class names should avoid abbreviations, be descriptive and be camel-cased.	 | `interface OrderService` 
+NOT: `interface OrderServ`      |  |
+| Abstact classes should be prefixed with 'Abstract'.	 | `class AbstractOrderService implements OrderService` 
+NOT `class OrderServiceAbs implements OrderService`  |  |
+| Exception class names should be suffixed with 'Exception' | `EngineFailureException extends Exception` 
+NOT: `EngineFailure extends Exception` | |
+| Interface implementations should ideally be prefixed with something meaningful in the context. e.g. 'Simple', 'Generic' is possible. | `GenericLifeCycleManager`, `SingletonObjectFactory`  |  |
+| Default interface implementations can be prefixed by 'Default'. | `class DefaultOrderService implements OrderService` 
+NOT: `class OrderServiceImpl implements OrderService` | It is not uncommon to create a simplistic class implementation of an interface providing default behaviour to the interface methods. The convention of prefixing these classes by Default has been adopted by Sun for the Java library. |
+| Test classes should be suffixed with 'TestCase' | `LoanBrokerESBTestCase`  |  |
 
-To set these properties, it's necessary to pass them in the maven command line as `-DPropertyName=value` where value is optional for `true`. Therefore, to disable the distribution creation skip we could use `-DskipDistributions=false` while to skip the integration tests we can `-DskipIntegrationTests`.
+## Methods/Variables
 
-It is important to remember that the rest of the maven plugins flags are still applicable, for instance to disable tests in the surefire plugin we could do: `-DskipTests`.
+| Convention           | Example      | Notes  |
+|:--------------------------|:-------------|:-------------|
+| Variable names must be in mixed case starting with lower case.	 | `message`, `newOrder` | Common practice in the Java development community and also the naming convention for variables used by Sun for the Java core packages. Makes variables easy to distinguish from types, and effectively resolves potential naming collision as in the declaration Line line; |
+| Names representing constants (final variables) must be all uppercase using underscore to separate words.  | `MAX_ITERATIONS`, `COLOR_RED`  | Common practice in the Java development community and also the naming convention used by Sun for the Java core packages.  |
+| Names representing methods must be verbs and written in mixed case starting with lower case. | `getName()`, `computeTotalWidth()`  | Common practice in the Java development community and also the naming convention used by Sun for the Java core packages and the JavaBean specification. This is identical to variable names, but methods in Java are already distinguishable from variables by their specific form. |
+| Abbreviations and acronyms should not be uppercase when used as name. | `exportHtmlSource();` NOT: `exportHTMLSource();`
+`openDvdPlayer(); ` NOT: `openDVDPlayer();` | Using all uppercase for the base name will give conflicts with the naming conventions given above. A variable of this type whould have to be named dVD, hTML etc. which obviously is not very readable. Another problem is illustrated in the examples above; When the name is connected to another, the readability is seriously reduced; The word following the acronym does not stand out as it should. |
+| Underscores and other special characters should NOT be used in variable names, method names or class names | `private String name;` NOT `private String name_;` | Often private member variables are given an underscore '_' prefix to denote it's private member status. Mule does not use this convention as Java Editors make the status of variables know through color coding. |
+| Generic variables should have the same name as their type. |  `void setTopic(Topic topic)` NOT: `void setTopic(Topic value)` NOT: `void setTopic(Topic aTopic)` NOT: `void setTopic(Topic t)` `void connect(Database database)` NOT: `void connect(Database db)` NOT: `void connect(Database oracleDB)` | Reduce complexity by reducing the number of terms and names used. Also makes it easy to deduce the type given a variable name only. If for some reason this convention doesn't seem to fit it is a strong indication that the type name is badly chosen. Non-generic variables have a role. These variables can often be named by combining role and type: Point startingPoint, centerPoint; Name loginName;|
+|All names should be written in English.| | English is the preferred language for Mule development.|
+| The terms get/set must be used where an attribute is accessed directly. | `employee.getName(); employee.setName(name); matrix.getElement(2, 4); matrix.setElement(2, 4, value);` | Common practice in the Java community and the convention used by Sun for the Java core packages and the JavaBean Specification. |
+| `is` prefix should be used for boolean variables and methods.| `isSet`, `isVisible`, `isFinished`, `isFound`, `isOpen` | This is the naming convention for boolean methods and variables used by Sun for the Java core packages and the JavaBean specification. Using the is prefix solves a common problem of choosing bad boolean names like status or flag. isStatus or isFlag simply doesn't fit, and the programmer is forced to chose more meaningful names. |
+| Negated boolean variable names must be avoided. | `boolean isError;` NOT: `boolean isNoError` boolean `isFound;` NOT: `isNotFound` | The problem arise when the logical not operator is used and double negative arises. It is not immediately apparent what !isNotError means.|
+| Associated constants (final variables) should be prefixed by a common type name. | `final int COLOR_RED = 1; final int COLOR_GREEN = 2; final int COLOR_BLUE = 3;` | This indicates that the constants belong together, and what concept the constants represents. |
 
-#### Distributions
+## Imports
 
-When you package Mule for distribution, all distributions and related resources are located in the distributions sub-project. 
+In general, do not include star imports, and ensure that you sort all imports alphabetically, in ascending order in each group.
 
-For performance's sake, the distributions are *not* built from the project's top-level directory by default. You may either build a distribution from its own directory, or disable the `distributions` skip flag  by adding `-DskipDistributions=false` to your Maven command line.
+```java
+org.mule
+<blank Line>
+com
+<blank Line>
+java
+<blank Line>
+javax
+<blank Line>
+<all other import sorted alphabetically>
+```
 
-The table below offers a brief description of each type distribution.
 
-|Type                           | Sub-project	                   |Description       |Breadth            |
-|:------------------------------|:-------------------------------|:-----------------|:------------------|
-| Full Standalone Server        | `/distributions/server/full`   | Packages Mule as a stand-alone server application. Includes all transports, extras and all dependencies. Includes the [Java Service Wrapper](http://wrapper.tanukisoftware.org/) for starting/stopping/restarting Mule from the native OS. | heavyweight |
-| Custom Standalone Server      | `/distributions/server/custom` | Packages Mule as a standalone server application without any dependencies. If the user's project is based on Maven, this distribution can easily provide the exact libraries it depends upon because of m2's intelligent resolution of transitive dependencies. | lightweight |
-| JCA Resource Adapter          | `/distributions/jca`           | Packages Mule as a JCA-compatible Resource Adapter for deployment into a J2EE application server. Includes all transports, extras and all dependencies. | heavyweight |
-| Embedded (Composite) JAR File | `/distribution/embedded` | Packages Mule as a single JAR file containing all Mule classes, including all transports and extras). This distribution is useful when embedding Mule into another application, or when using Mule with a non-Maven-based build. Note that when you use this approach, you are responsible for providing any needed Mule dependencies, as described in the next section. | lightweight |
- 
+# Mule XML Coding Conventions
 
-### Troubleshooting Maven
+## XML Formatting
 
-This section describes some problems you might experience using Maven and how to resolve or work around them.
+| Concept    | Rule                                                                               |
+|:-----------|:-----------------------------------------------------------------------------------|
+| Wrapping   | Wrap lines at 120 characters. Wrap attributes only if they exceed 120 characters.  |
+| Indenting  | Use four spaces for indenting, rather that tabs.                                   |
+| Whitespace | Empty tags should not contain whitespace. Incorrect: `<tag />` Correct: `<tag/>`   |
+| Aligning   | Align wrapped attributes with the first attribute on the previous line.            |
 
-| Problem                             | Description  |  Solution    |
-|:------------------------------------|:-------------|:------------| 
-| Files could not be retrieved	       | You are behind a firewall and get an error stating that repository metadata for org.mule.tools could not be retrieved from the central repository.|Check the proxy settings in your Maven settings.xml file to confirm that they are configured correctly.|
-|OutOfMemory Error                    | You encounter OutOfMemoryError exceptions when attempting a full build of Mule.| Increasing the max heap and the PermGen space sizes. To do so, either export a MAVEN_OPTS variable in your shell, or add the variable to the original mvn script. Use the following: `MAVEN_OPTS=-Xmx512m -XX:MaxPermSize=256m` |
-|Slow build                           | 	-	 |If you know your downloads are up-to-date, you can use the offline option using the following command: `mvn -o` |
-| Conflicting transitive dependencies | Transitive dependencies in m2 are both powerful and problematic at times. For example, you many have conflicting library versions or when unwanted libraries are in your classpath.|	Use the debug option to display the effective classpath in a tree format, making it easy to see where each library is coming from: `mvn -x` |
-| Running a goal for a specific project| By default, Maven execute a goal for a project and all sub-projects in its hierarchy. |	If you want to run the goal for a specific project only (and not its children), you can use the non-recursive option: `mvn -N` |
-| Debugging test failures | 	Surefire, the default Maven test runner, outputs all reports as a set of XML and text files. Any test failure details and stack traces are written to those files instead of the console, so it can be time consuming to open files to find problems. | You can redirect the output to the console temporarily by adding the following option: `mvn -Dsurefire.useFile=false`. This option skips creation ofthe text report, but still makes the XML report available for transformation by tools. | 
+## XML Schema Conventions
+
+| Schema Item                    | Convention                                                                         |
+|:-------------------------------|:-----------------------------------------------------------------------------------|
+| Simple Types and Complex Types | Use nouns for the names of simple and complex types. Use mixed case names, starting with lowercase. Always apply a `Type` suffix.  | `inboundRouterType` |
+| Attributes                     | Use mixed case names for attributes, starting with lowercase. | `address` `name` `synchronous` |
+| Element                        | Use lowercase for element names. Use a "-" separator between words, when necessary. | `inbound-router` `custom-transformer` |
+| Groups                         | Use mixed case names for groups, starting with lowercase. Always apply a Group suffix.   | `inboundRouterGroup` `exceptionStrategiesGroup` |
+| Namespaces                     | see example | http://www.mulesoft.org/schema/mule/${module}/${version} |
+| Namespace prefixes             | see example | ${module} |
+| Occurrence constraint          | Use occurrence constraints only when non-default values are required. | Note: For clarity's sake, include either all values, or just the non-default values. Given the number of places where minOccurs/maxOccurs attributes exists, it is tedious to complete all values. |
+
+
+## XML Schema Best Practices
+
+- Avoid restricting complex types; restricting simple types is acceptable.
+- Use elements rather than attributes in the following circumstances:
+    - you require complex types 
+    - you do not have a requirement to specify valid combinations (for example, with choice)
+    - you must accommodate future extensibility
+- Keep schema restrictive but extensible
+- Do not use unbound choice model groups, as per the example below.
+
+```xml
+<choice minOccurs="0" max Occurs="unbounded">
+    ...
+</choice>
+```
+
+Always order elements using `<sequence/>`. 
+Specify occurrence constraints only on references to groups, rather than groups.
+
+
+## Resources
+
+Access [xFront Best Practices](http://www.xfront.com/BestPracticesHomepage.html) for more details.
+
+
+
+
+
+
+
+
+
+
