@@ -245,6 +245,10 @@ Now that you're all set with a local development environment and your own branch
 7. Push your squashed commit to your branch on your github repository. Refer to [Git's documentation](http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository) for details on how to commit your changes.
 8. Regularly update your branch with any changes or fixes applied to the mule-3.x branch. Refer to details below.
 
+### Debugging Mule
+
+While developing your contribution you might need to debug Mule. There is a guide for it avaiable in the [Mule documentation site](http://www.mulesoft.org/documentation/display/current/Step+Debugging).
+
 ## Updating Your topic Branch
 
 To ensure that your cloned version of Mule source code remains up-to-date with any changes to the mule-3.x (i.e. master) branch, regularly update your branch to rebase off the latest version of the master.  
